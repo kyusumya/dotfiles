@@ -20,15 +20,13 @@ return {
 				},
 			})
 
-			require("mason-lspconfig").setup_handlers({
-				function(server)
-					require("lspconfig")[server].setup({
-						capabilities = require("cmp_nvim_lsp").default_capabilities(
-							vim.lsp.protocol.make_client_capabilities()
-						),
-					})
-				end,
-			})
+			for _, server in ipairs(require("mason-lspconfig").get_installed_servers()) do
+				require("lspconfig")[server].setup({
+					capabilities = require("cmp_nvim_lsp").default_capabilities(
+						vim.lsp.protocol.make_client_capabilities()
+					),
+				})
+			end
 		end,
 	},
 	"neovim/nvim-lspconfig",
